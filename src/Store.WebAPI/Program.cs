@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Store.WebAPI.DataAccess;
 using Store.WebAPI.Services;
@@ -33,7 +34,11 @@ builder.Services.AddSingleton(new SecurityKeyProvider { Key = signingKey });
 builder.Services.AddSingleton<JwtService>();
 
 // Data
-builder.Services.AddDbContext<StoreDbContext>();
+string connectionString = builder.Configuration.GetConnectionString("Default")
+                          ?? throw new NullReferenceException("Default connection string not found");
+
+builder.Services.AddDbContext<StoreDbContext>(options =>
+    options.UseMySql(connectionString, new MySqlServerVersion("8.0.39")));
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserService, UserService>();
 

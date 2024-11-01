@@ -8,8 +8,8 @@ using Store.WebAPI.Util;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container. 
-
+// Add services to the container.
+builder.Services.AddSingleton<ApplicationEnvironment>();
 builder.Services.AddControllers();
 
 // JWT

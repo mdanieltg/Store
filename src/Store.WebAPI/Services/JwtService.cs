@@ -25,10 +25,16 @@ public class JwtService
             new Claim(ClaimTypes.Name, user.Username)
         };
 
-        var tokenDescriptor = new SecurityTokenDescriptor
+        TimeSpan expirationTime = _environment.Environment switch
+        {
+            DevelopmentEnvironment.Development => TimeSpan.FromHours(1),
+            _ => TimeSpan.FromMinutes(5)
+        };
+
+        SecurityTokenDescriptor tokenDescriptor = new()
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(5),
+            Expires = DateTime.UtcNow.Add(expirationTime),
             SigningCredentials = _signingCredentials
         };
 

@@ -1,0 +1,21 @@
+﻿services:
+  backend:
+    build:
+      context: .
+      dockerfile: src/Store.WebAPI/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+    image: store.webapi
+    ports:
+      - "80:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: "http://+:8080"
+    depends_on:
+      - db
+  db:
+    image: mysql:latest
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"

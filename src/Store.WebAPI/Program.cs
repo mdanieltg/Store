@@ -1,9 +1,44 @@
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Store.WebAPI.DataAccess;
+using Store.WebAPI.Services;
+using Store.WebAPI.Util;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container. 
 
 builder.Services.AddControllers();
- 
+
+// JWT
+byte[] signingKeyString = RandomNumberGenerator.GetBytes(32);
+SymmetricSecurityKey signingKey = new(signingKeyString);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = signingKey,
+            ClockSkew = TimeSpan.FromSeconds(30)
+        };
+    });
+
+builder.Services.AddSingleton(new SecurityKeyProvider { Key = signingKey });
+builder.Services.AddSingleton<JwtService>();
+
+// Data
+builder.Services.AddDbContext<StoreDbContext>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddSwaggerSetup();
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -13,6 +48,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

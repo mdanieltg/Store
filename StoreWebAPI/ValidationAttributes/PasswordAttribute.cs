@@ -27,20 +27,20 @@ public class PasswordAttribute : ValidationAttribute
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
         var password = value as string;
-        if (password is null) return new ValidationResult("The password field cannot be empty.");
+        if (string.IsNullOrWhiteSpace(password)) return new ValidationResult("The password field cannot be empty.");
 
         if (password.Length < 8) return new ValidationResult("The password must be at least 8 characters long.");
         if (!_uppercaseLetters.Any(c => password.Contains(c)))
-            return new ValidationResult("The password must containt at least one uppercase letter.");
+            return new ValidationResult("The password must contain at least one uppercase letter.");
 
         if (!_lowercaseLetters.Any(c => password.Contains(c)))
-            return new ValidationResult("The password must containt at least one lowercase letter.");
+            return new ValidationResult("The password must contain at least one lowercase letter.");
 
         if (!_numbers.Any(c => password.Contains(c)))
-            return new ValidationResult("The password must containt at least one number.");
+            return new ValidationResult("The password must contain at least one number.");
 
         if (!_symbols.Any(c => password.Contains(c)))
-            return new ValidationResult("The password must containt at least one symbol.");
+            return new ValidationResult("The password must contain at least one symbol.");
 
         return ValidationResult.Success;
     }

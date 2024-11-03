@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Store.WebAPI.Entities;
+using Store.WebAPI.Exceptions;
 using Store.WebAPI.Models;
 using Store.WebAPI.Services;
 
@@ -50,19 +51,26 @@ public class SignInController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async ValueTask<IActionResult> SignUp([FromBody] NewUserModel newUser)
     {
-        User? createdUser = await _userService.CreateUser(
-            username: newUser.Username,
-            password: newUser.Password,
-            email: newUser.Email,
-            firstName: newUser.FirstName,
-            middleName: newUser.MiddleName,
-            lastName: newUser.LastName);
-
-        if (createdUser is null)
+        try
         {
-            ModelState.TryAddModelException("", new Exception("An error occured when trying to create the user."));
+            User createdUser = await _userService.CreateUser(
+                username: newUser.Username,
+                password: newUser.Password,
+                role: newUser.Role,
+                email: newUser.Email,
+                firstName: newUser.FirstName,
+                middleName: newUser.MiddleName,
+                lastName: newUser.LastName);
+            return NoContent();
         }
-
-        return NoContent();
+        catch (InvalidUserRoleException e)
+        {
+            return BadRequest(e.Message);
+        }
+        catch (UserNotCreatedExcpetion e)
+        {
+            ModelState.TryAddModelException("", e);
+            return StatusCode(500, "Internal server error"); // TODO: Change this logic
+        }
     }
 }

@@ -22,4 +22,5 @@ public class NewUserModel
 
     [StringLength(50, MinimumLength = 8)]
     public required string Password { get; set; }
+    public required string Role { get; set; }
 }

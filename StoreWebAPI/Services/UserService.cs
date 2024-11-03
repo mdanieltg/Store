@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using Store.WebAPI.DataAccess;
 using Store.WebAPI.Entities;
+using Store.WebAPI.Exceptions;
 using Store.WebAPI.Util;
 
 namespace Store.WebAPI.Services;
@@ -20,10 +21,13 @@ public class UserService : IUserService
     public async ValueTask<User?> GetUser(string username) =>
         await _dbContext.Users.FirstOrDefaultAsync(user => user.Username == username);
 
-    public async ValueTask<User?> CreateUser(string username, string password, string email, string firstName,
-        string? middleName, string lastName)
+    public async ValueTask<User> CreateUser(string username, string password, string role, string email,
+        string firstName, string? middleName, string lastName)
     {
         byte[] hashedPassword = Security.ComputeHash(password, 32, out byte[] salt);
+
+        UserRole userRole = await _dbContext.UserRoles.FirstOrDefaultAsync(r => r.Name == role)
+                            ?? throw new InvalidUserRoleException(role);
 
         User user = new()
         {
@@ -32,7 +36,8 @@ public class UserService : IUserService
             Salt = salt,
             Email = email,
             CreationDate = DateTimeOffset.Now,
-            LastLoginDate = DateTimeOffset.MinValue
+            LastLoginDate = DateTimeOffset.MinValue,
+            RoleId = userRole.Id
         };
         Customer customer = new()
         {
@@ -53,11 +58,11 @@ public class UserService : IUserService
             return user;
         }
         catch (DbUpdateException e)
-            // catch (Exception e)
         {
             await transaction.RollbackAsync();
-            _logger.LogError("An error has occured when updating the database: {ErrorMessage}", e.Message);
-            return null;
+            _logger.LogError("An error has occured when updating the database, the changes were rolled back");
+            _logger.LogError(e.Message);
+            throw new UserNotCreatedExcpetion(e);
         }
     }
 }

@@ -22,7 +22,11 @@ public class JwtService
     {
         var claims = new[]
         {
-            new Claim(ClaimTypes.Name, user.Username)
+            new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.GivenName, user.Customer.FirstName),
+            new Claim(ClaimTypes.Surname, user.Customer.LastName),
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.Role, user.Role.Name)
         };
 
         TimeSpan expirationTime = _environment.Environment switch

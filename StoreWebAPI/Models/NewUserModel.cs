@@ -23,5 +23,7 @@ public class NewUserModel
 
     [Password]
     public required string Password { get; set; }
+
+    [UserRole]
     public required string Role { get; set; }
 }

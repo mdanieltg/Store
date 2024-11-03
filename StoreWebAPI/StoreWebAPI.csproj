@@ -19,11 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DataAccess\Migrations\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="..\..\.dockerignore">
+      <Content Include=".dockerignore">
         <Link>.dockerignore</Link>
       </Content>
     </ItemGroup>

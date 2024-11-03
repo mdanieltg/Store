@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Store.WebAPI.Entities;
+namespace StoreWebAPI.Entities;
 
 public class Order
 {

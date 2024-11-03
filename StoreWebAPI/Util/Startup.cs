@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace Store.WebAPI.Util;
+namespace StoreWebAPI.Util;
 
 public static class Startup
 {

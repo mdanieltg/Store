@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Store.WebAPI.DataAccess;
-using Store.WebAPI.Entities;
-using Store.WebAPI.Exceptions;
-using Store.WebAPI.Util;
+using StoreWebAPI.DataAccess;
+using StoreWebAPI.Entities;
+using StoreWebAPI.Exceptions;
+using StoreWebAPI.Util;
 
-namespace Store.WebAPI.Services;
+namespace StoreWebAPI.Services;
 
 public class UserService : IUserService
 {

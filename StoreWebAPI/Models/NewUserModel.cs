@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Store.WebAPI.Models;
+namespace StoreWebAPI.Models;
 
 public class NewUserModel
 {

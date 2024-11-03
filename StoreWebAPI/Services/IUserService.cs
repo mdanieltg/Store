@@ -1,6 +1,6 @@
-﻿using Store.WebAPI.Entities;
+﻿using StoreWebAPI.Entities;
 
-namespace Store.WebAPI.Services;
+namespace StoreWebAPI.Services;
 
 public interface IUserService
 {

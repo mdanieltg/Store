@@ -1,4 +1,4 @@
-﻿namespace Store.WebAPI.Models;
+﻿namespace StoreWebAPI.Models;
 
 public class SignInModel
 {

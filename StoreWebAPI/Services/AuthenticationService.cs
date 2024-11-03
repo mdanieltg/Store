@@ -1,7 +1,7 @@
-﻿using Store.WebAPI.Entities;
-using Store.WebAPI.Util;
+﻿using StoreWebAPI.Entities;
+using StoreWebAPI.Util;
 
-namespace Store.WebAPI.Services;
+namespace StoreWebAPI.Services;
 
 public class AuthenticationService : IAuthenticationService
 {

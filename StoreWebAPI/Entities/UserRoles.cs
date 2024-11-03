@@ -1,4 +1,4 @@
-namespace Store.WebAPI.Entities;
+namespace StoreWebAPI.Entities;
 
 public enum UserRoles
 {

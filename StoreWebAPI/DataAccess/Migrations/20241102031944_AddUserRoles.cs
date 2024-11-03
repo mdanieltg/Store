@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Store.WebAPI.Entities;
+using StoreWebAPI.Entities;
 
 #nullable disable
 

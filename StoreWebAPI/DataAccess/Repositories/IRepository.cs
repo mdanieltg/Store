@@ -1,4 +1,4 @@
-﻿namespace Store.WebAPI.DataAccess.Repositories;
+﻿namespace StoreWebAPI.DataAccess.Repositories;
 
 public interface IRepository<T>
 {

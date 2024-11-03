@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Store.WebAPI.Entities;
+namespace StoreWebAPI.Entities;
 
 public class UserRole
 {

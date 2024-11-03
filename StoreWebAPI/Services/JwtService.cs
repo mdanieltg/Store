@@ -1,10 +1,10 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
-using Store.WebAPI.Entities;
-using Store.WebAPI.Util;
+using StoreWebAPI.Entities;
+using StoreWebAPI.Util;
 
-namespace Store.WebAPI.Services;
+namespace StoreWebAPI.Services;
 
 public class JwtService
 {

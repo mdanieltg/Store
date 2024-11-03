@@ -1,12 +1,12 @@
 ﻿using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Store.WebAPI.Entities;
-using Store.WebAPI.Exceptions;
-using Store.WebAPI.Models;
-using Store.WebAPI.Services;
+using StoreWebAPI.Entities;
+using StoreWebAPI.Exceptions;
+using StoreWebAPI.Models;
+using StoreWebAPI.Services;
 
-namespace Store.WebAPI.Controllers;
+namespace StoreWebAPI.Controllers;
 
 [ApiController]
 [Route("/api/auth")]

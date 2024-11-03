@@ -1,6 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 
-namespace Store.WebAPI.Services;
+namespace StoreWebAPI.Services;
 
 public class SecurityKeyProvider
 {

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Store.WebAPI.DataTransferObjects;
+namespace StoreWebAPI.DataTransferObjects;
 
 [DebuggerDisplay("Username: {Username}")]
 public class UserDto

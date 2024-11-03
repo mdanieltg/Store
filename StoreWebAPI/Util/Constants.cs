@@ -1,6 +1,6 @@
-using Store.WebAPI.Entities;
+using StoreWebAPI.Entities;
 
-namespace Store.WebAPI.Util;
+namespace StoreWebAPI.Util;
 
 public static class Constants
 {

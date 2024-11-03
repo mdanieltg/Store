@@ -1,4 +1,4 @@
-namespace Store.WebAPI.Exceptions;
+namespace StoreWebAPI.Exceptions;
 
 public class InvalidUserRoleException : Exception
 {

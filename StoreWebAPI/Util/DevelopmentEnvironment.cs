@@ -1,4 +1,4 @@
-namespace Store.WebAPI.Util;
+namespace StoreWebAPI.Util;
 
 public enum DevelopmentEnvironment
 {

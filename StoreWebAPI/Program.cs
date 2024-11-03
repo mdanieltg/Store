@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Store.WebAPI.DataAccess;
-using Store.WebAPI.Services;
-using Store.WebAPI.Util;
+using StoreWebAPI.DataAccess;
+using StoreWebAPI.Services;
+using StoreWebAPI.Util;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

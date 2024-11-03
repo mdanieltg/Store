@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Store.WebAPI.Util;
+namespace StoreWebAPI.Util;
 
 public static class Arrays
 {

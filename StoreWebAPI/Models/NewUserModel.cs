@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using StoreWebAPI.ValidationAttributes;
 
 namespace StoreWebAPI.Models;
 
@@ -20,7 +21,7 @@ public class NewUserModel
     [StringLength(255)]
     public required string Email { get; set; }
 
-    [StringLength(50, MinimumLength = 8)]
+    [Password]
     public required string Password { get; set; }
     public required string Role { get; set; }
 }

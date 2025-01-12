@@ -19,7 +19,8 @@ public class UserService : IUserService
     }
 
     public async ValueTask<User?> GetUser(string username) =>
-        await _dbContext.Users.FirstOrDefaultAsync(user => user.Username == username);
+        await _dbContext.Users
+            .FirstOrDefaultAsync(user => user.Username == username && !user.IsDeleted);
 
     public async ValueTask<User> CreateUser(string username, string password, string role, string email,
         string firstName, string? middleName, string lastName)
@@ -64,5 +65,28 @@ public class UserService : IUserService
             _logger.LogError(e.Message);
             throw new UserNotCreatedExcpetion(e);
         }
+    }
+
+    public async ValueTask FailedAttempt(User user)
+    {
+        // Increment the login attempts by 1
+        ++user.LoginAttempts;
+
+        // Set last login attempt date to now
+        user.LastLoginAttempt = DateTimeOffset.Now;
+
+        // If user has more than 3 failed login attempts, lock the account
+        if (user.LoginAttempts >= 3) user.IsLocked = true;
+
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async ValueTask SuccessfulAttempt(User user)
+    {
+        // Reset the login attempts to 0
+        user.LoginAttempts = 0;
+        user.LastLoginDate = DateTimeOffset.Now;
+
+        await _dbContext.SaveChangesAsync();
     }
 }

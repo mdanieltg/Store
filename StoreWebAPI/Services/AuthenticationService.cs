@@ -15,12 +15,17 @@ public class AuthenticationService : IAuthenticationService
     public async ValueTask<User?> Authenticate(string username, string password)
     {
         User? user = await _userService.GetUser(username);
-        if (user is null) return null;
+        if (user is null || user.IsLocked) return null;
 
         bool passwordsMatch = Security.CompareHashes(password, user.Password, user.Salt);
 
-        return passwordsMatch
-            ? user
-            : null;
+        if (!passwordsMatch)
+        {
+            await _userService.FailedAttempt(user);
+            return null;
+        }
+
+        await _userService.SuccessfulAttempt(user);
+        return user;
     }
 }

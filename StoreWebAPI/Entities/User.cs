@@ -26,6 +26,8 @@ public class User
     public bool IsDeleted { get; set; }
     public DateTimeOffset CreationDate { get; set; }
     public DateTimeOffset LastLoginDate { get; set; }
+    public DateTimeOffset LastLoginAttempt { get; set; }
+    public int LoginAttempts { get; set; }
 
 
     [ForeignKey(nameof(RoleId))]

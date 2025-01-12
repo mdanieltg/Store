@@ -3,18 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Store.WebAPI.DataAccess;
 using StoreWebAPI.DataAccess;
 
 #nullable disable
 
-namespace Store.WebAPI.DataAccess.Migrations
+namespace StoreWebAPI.DataAccess.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250112211706_AddLoginAttemptFieldsToUser")]
+    partial class AddLoginAttemptFieldsToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,7 +25,7 @@ namespace Store.WebAPI.DataAccess.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Store.WebAPI.Entities.Customer", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.Customer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +56,7 @@ namespace Store.WebAPI.DataAccess.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.InventoryItem", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.InventoryItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,7 +76,7 @@ namespace Store.WebAPI.DataAccess.Migrations
                     b.ToTable("Inventory");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.Order", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.Order", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +104,7 @@ namespace Store.WebAPI.DataAccess.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.OrderItem", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.OrderItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -132,7 +134,7 @@ namespace Store.WebAPI.DataAccess.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.Product", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -148,7 +150,7 @@ namespace Store.WebAPI.DataAccess.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.User", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -202,7 +204,7 @@ namespace Store.WebAPI.DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.UserRole", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.UserRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -218,31 +220,31 @@ namespace Store.WebAPI.DataAccess.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.Customer", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.Customer", b =>
                 {
-                    b.HasOne("Store.WebAPI.Entities.User", "User")
+                    b.HasOne("StoreWebAPI.Entities.User", "User")
                         .WithOne("Customer")
-                        .HasForeignKey("Store.WebAPI.Entities.Customer", "UserId")
+                        .HasForeignKey("StoreWebAPI.Entities.Customer", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.InventoryItem", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.InventoryItem", b =>
                 {
-                    b.HasOne("Store.WebAPI.Entities.Product", "Product")
+                    b.HasOne("StoreWebAPI.Entities.Product", "Product")
                         .WithOne("InventoryItem")
-                        .HasForeignKey("Store.WebAPI.Entities.InventoryItem", "ProductId")
+                        .HasForeignKey("StoreWebAPI.Entities.InventoryItem", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.Order", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.Order", b =>
                 {
-                    b.HasOne("Store.WebAPI.Entities.Customer", "Customer")
+                    b.HasOne("StoreWebAPI.Entities.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -251,15 +253,15 @@ namespace Store.WebAPI.DataAccess.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.OrderItem", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.OrderItem", b =>
                 {
-                    b.HasOne("Store.WebAPI.Entities.Order", "Order")
+                    b.HasOne("StoreWebAPI.Entities.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Store.WebAPI.Entities.Product", "Product")
+                    b.HasOne("StoreWebAPI.Entities.Product", "Product")
                         .WithMany("OrderItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -270,9 +272,9 @@ namespace Store.WebAPI.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.User", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.User", b =>
                 {
-                    b.HasOne("Store.WebAPI.Entities.UserRole", "Role")
+                    b.HasOne("StoreWebAPI.Entities.UserRole", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -281,17 +283,17 @@ namespace Store.WebAPI.DataAccess.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.Customer", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.Customer", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.Order", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.Order", b =>
                 {
                     b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.Product", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.Product", b =>
                 {
                     b.Navigation("InventoryItem")
                         .IsRequired();
@@ -299,13 +301,13 @@ namespace Store.WebAPI.DataAccess.Migrations
                     b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.User", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.User", b =>
                 {
                     b.Navigation("Customer")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Store.WebAPI.Entities.UserRole", b =>
+            modelBuilder.Entity("StoreWebAPI.Entities.UserRole", b =>
                 {
                     b.Navigation("Users");
                 });

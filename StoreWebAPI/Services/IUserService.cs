@@ -8,4 +8,7 @@ public interface IUserService
 
     ValueTask<User> CreateUser(string username, string password, string role, string email, string firstName,
         string? middleName, string lastName);
+
+    ValueTask FailedAttempt(User user);
+    ValueTask SuccessfulAttempt(User user);
 }

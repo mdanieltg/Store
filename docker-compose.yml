@@ -2,7 +2,7 @@
   backend:
     build:
       context: .
-      dockerfile: src/Store.WebAPI/Dockerfile
+      dockerfile: StoreWebAPI/Dockerfile
       args:
         BUILD_CONFIGURATION: Debug
     image: store.webapi

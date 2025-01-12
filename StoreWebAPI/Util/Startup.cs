@@ -16,7 +16,7 @@ public static class Startup
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
-                Description = "Please enter JWT with Bearer into the field",
+                Description = "Please enter JWT prepending the word Bearer into the field",
                 Name = "Authorization",
                 Type = SecuritySchemeType.ApiKey,
                 Scheme = "Bearer"

@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using Mapster;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +13,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddSingleton<ApplicationEnvironment>();
 builder.Services.AddControllers();
+builder.Services.AddMapster();
 
 // JWT
 byte[] signingKeyString = RandomNumberGenerator.GetBytes(32);
